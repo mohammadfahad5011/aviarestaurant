@@ -11,7 +11,7 @@
         box-sizing: border-box;
       }
 
-      body {
+      /* body {
         font-family: "Courier New", monospace;
         background: url("./assets/Artboard-1.png") no-repeat center center;
         background-size: cover;
@@ -22,10 +22,27 @@
         align-items: center;
         position: relative;
         text-align: center;
+      } */
+
+      body {
+        font-family: "Courier New", monospace;
+        /* background: linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.1)),
+          url("./assets/Artboard-1.png") no-repeat center center; */
+        background: url("./assets/Artboard-1.png") no-repeat center center;
+        background-size: cover;
+        color: #ffffff; /* text looks better on dark shade */
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: relative;
+        text-align: center;
+        z-index: 0;
       }
 
       .logo {
-        width: 500px; /* adjust size */
+        position: relative;
+        width: 500px;
         z-index: 1;
       }
 
@@ -36,6 +53,7 @@
         text-decoration: none;
         color: #3b4a2b;
         transition: opacity 0.3s;
+        z-index: 2;
       }
       .nav-link:hover {
         opacity: 0.6;
@@ -67,19 +85,85 @@
         bottom: 20px;
         right: 20px;
       }
+
+      @media screen and (max-width: 600px) {
+        .nav-link {
+          font-size: 1.6rem;
+        }
+
+        .logo {
+          width: 200px;
+        }
+
+        .nav-link {
+          position: relative;
+          font-weight: 600;
+        }
+
+        .bottom-menu,
+        .top-menu {
+          display: flex;
+          flex-direction: column;
+          row-gap: 8px;
+        }
+
+        .top-menu {
+          position: relative;
+          top: 10%;
+        }
+
+        .bottom-menu {
+          position: relative;
+          bottom: 10%;
+        }
+
+        body {
+          display: flex;
+          flex-direction: column;
+          justify-content: space-between;
+          background-size: auto;
+        }
+
+        .gift {
+          top: auto;
+          left: auto;
+        }
+        .menu {
+          top: auto;
+          right: auto;
+        }
+        .whats-on {
+          top: auto;
+          /* left: auto; */
+        }
+        .book {
+          bottom: auto;
+          left: auto;
+        }
+        .email {
+          bottom: auto;
+          /* left: auto; */
+        }
+        .ig {
+          bottom: auto;
+          right: auto;
+        }
+      }
     </style>
   </head>
   <body>
-    <a
-      href="https://giftcards.nowbookit.com/cards/card-selection?accountid=32b588b5-2269-4e81-87eb-bd07531097a1&venueid=12829&theme=light&accent=76,87,55,255"
-      class="nav-link gift"
-      target="_blank"
-      >Gift Voucher</a
-    >
-    <a href="what's-on.html" class="nav-link whats-on" target="_blank"
-      >What’s On</a
-    >
-    <a href="menu.html" class="nav-link menu" target="_blank">Menu</a>
+    <div class="top-menu">
+      <a
+        href="https://giftcards.nowbookit.com/cards/card-selection?accountid=32b588b5-2269-4e81-87eb-bd07531097a1&venueid=12829&theme=light&accent=76,87,55,255"
+        class="nav-link gift"
+        target="_blank"
+        >Gift Voucher</a
+      >
+      <a href="what's-on.html" class="nav-link whats-on" target="_blank"
+        >What’s On</a
+      >
+      <a href="menu.html" class="nav-link menu" target="_blank">Menu</a>
+    </div>
 
     <!-- ✅ FIXED SVG -->
     <svg
@@ -121,20 +205,22 @@
       />
     </svg>
 
-    <a
-      href="https://www.sevenrooms.com/explore/avia/reservations/create/search/"
-      class="nav-link book"
-      target="_blank"
-      >Book a Table</a
-    >
-    <a href="mailto:ciao@aviarestaurant.com" class="nav-link email"
-      >ciao@aviarestaurant</a
-    >
-    <a
-      target="_blank"
-      href="https://www.instagram.com/avia_restaurant_/"
-      class="nav-link ig"
-      >IG</a
-    >
+    <div class="bottom-menu">
+      <a
+        href="https://www.sevenrooms.com/explore/avia/reservations/create/search/"
+        class="nav-link book"
+        target="_blank"
+        >Book a Table</a
+      >
+      <a href="mailto:ciao@aviarestaurant.com" class="nav-link email"
+        >ciao@aviarestaurant</a
+      >
+      <a
+        target="_blank"
+        href="https://www.instagram.com/avia_restaurant_/"
+        class="nav-link ig"
+        >IG</a
+      >
+    </div>
   </body>
 </html>
