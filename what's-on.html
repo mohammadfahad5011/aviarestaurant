@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Avia – What's On</title>
+    <style>
+      body {
+        font-family: "Courier New", monospace;
+        background-color: #f8f8f0;
+        color: #3b4a2b;
+        margin: 0;
+        padding: 20px;
+        display: flex;
+        justify-content: center;
+      }
+
+      .content-container {
+        max-width: 900px;
+        width: 100%;
+        text-align: center;
+        position: relative;
+      }
+
+      .logo {
+        max-width: 400px;
+        margin: 30px auto;
+        margin-bottom: 0;
+        display: block;
+      }
+
+      h1,
+      h2,
+      h3,
+      b {
+        color: #2c3b24;
+      }
+
+      p,
+      div {
+        margin-bottom: 1em;
+        font-size: 1rem;
+        line-height: 1.6;
+      }
+
+      i {
+        color: #555;
+      }
+
+      /* Responsive */
+      @media screen and (max-width: 768px) {
+        body {
+          font-size: 15px;
+        }
+        .logo {
+          max-width: 150px;
+        }
+      }
+
+      @media screen and (max-width: 480px) {
+        body {
+          font-size: 14px;
+        }
+        .logo {
+          max-width: 120px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="content-container">
+      <!-- Logo -->
+      <a href="index.html">
+        <img id="logo" class="logo" alt="Avia Logo" />
+      </a>
+
+      <!-- API Content -->
+      <div id="content"></div>
+    </div>
+
+    <script>
+      async function loadContent() {
+        try {
+          const res = await fetch(
+            "https://api.cargo.site/v1/pages/2516320/url/what's-on"
+          );
+          const data = await res.json();
+
+          // ✅ Fix: Build Cargo image URL
+          if (data.media?.length > 0) {
+            const media = data.media[0];
+            const imgUrl = `https://freight.cargo.site/w/600/h/400/q/75/i/${media.hash}/${media.name}`;
+            document.getElementById("logo").src = imgUrl;
+          }
+
+          // Insert content (raw HTML from API)
+          document.getElementById("content").innerHTML = data.content;
+        } catch (error) {
+          console.error("Error loading content:", error);
+          document.getElementById("content").innerHTML =
+            "<p>Failed to load content.</p>";
+        }
+      }
+
+      loadContent();
+    </script>
+  </body>
+</html>
