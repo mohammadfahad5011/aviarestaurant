@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Avia – Dynamic Menu</title>
+    <style>
+      body {
+        font-family: "Courier New", monospace;
+        background-color: #f8f8f0;
+        color: #3b4a2b;
+        margin: 0;
+        padding: 20px;
+        display: flex;
+        justify-content: center;
+      }
+
+      .page-wrapper {
+        max-width: 1200px;
+        width: 100%;
+      }
+
+      .go-home-btn {
+        display: inline-block;
+        padding: 10px 20px;
+        font-size: 1.2rem;
+        font-weight: bold;
+        color: #fff;
+        background-color: #3b4a2b;
+        border-radius: 6px;
+        text-decoration: none;
+        margin-bottom: 20px;
+        transition: background 0.3s ease;
+      }
+
+      .go-home-btn:hover {
+        background-color: #5c7046;
+      }
+
+      .menu-container {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 40px;
+        position: relative;
+      }
+
+      .right-col {
+        display: flex;
+        flex-direction: column;
+      }
+
+      .illustration {
+        position: absolute;
+        bottom: 0;
+        right: 10%;
+        opacity: 0.6;
+        width: 350px;
+        max-width: 100%;
+      }
+
+      /* ✅ Responsive fixes */
+      @media screen and (max-width: 900px) {
+        .menu-container {
+          grid-template-columns: 1fr; /* Stack columns */
+        }
+
+        .illustration {
+          position: relative;
+          right: 0;
+          margin: 20px auto;
+          display: block;
+          width: 80%;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="page-wrapper">
+      <a class="go-home-btn" href="index.html">← Go Home</a>
+      <div class="menu-container">
+        <div id="left-column"></div>
+        <div id="right-column" class="right-col"></div>
+      </div>
+    </div>
+
+    <script>
+      async function loadMenu() {
+        try {
+          const res = await fetch(
+            "https://api.cargo.site/v1/pages/2516320/url/menu"
+          );
+          const data = await res.json();
+
+          const parser = new DOMParser();
+          const doc = parser.parseFromString(data.content, "text/html");
+
+          const columns = doc.querySelectorAll("column-unit");
+          document.getElementById("left-column").innerHTML =
+            columns[0]?.innerHTML || "";
+          document.getElementById("right-column").innerHTML =
+            columns[1]?.innerHTML || "";
+
+          if (data.media?.length > 0) {
+            const media = data.media[0];
+            const imgUrl = `https://freight.cargo.site/w/429/h/400/i/${media.hash}/${media.name}`;
+            const imgEl = document.createElement("img");
+            imgEl.src = imgUrl;
+            imgEl.alt = media.name || "illustration";
+            imgEl.className = "illustration";
+            document.querySelector(".menu-container").appendChild(imgEl);
+          }
+        } catch (err) {
+          console.error("Error loading menu:", err);
+        }
+      }
+
+      loadMenu();
+    </script>
+  </body>
+</html>
