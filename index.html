@@ -103,18 +103,19 @@
         .bottom-menu,
         .top-menu {
           display: flex;
-          flex-direction: column;
-          row-gap: 8px;
+          justify-content: space-between;
+          width: 100%;
+          padding: 0 24px;
         }
 
         .top-menu {
           position: relative;
-          top: 10%;
+          top: 5%;
         }
 
         .bottom-menu {
           position: relative;
-          bottom: 10%;
+          bottom: 5%;
         }
 
         body {
@@ -125,16 +126,17 @@
         }
 
         .gift {
-          top: auto;
-          left: auto;
+          display: none !important;
         }
+
         .menu {
           top: auto;
           right: auto;
         }
         .whats-on {
           top: auto;
-          /* left: auto; */
+          left: auto;
+          transform: translateX(0);
         }
         .book {
           bottom: auto;
@@ -142,7 +144,7 @@
         }
         .email {
           bottom: auto;
-          /* left: auto; */
+          display: none;
         }
         .ig {
           bottom: auto;
